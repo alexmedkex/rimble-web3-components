@@ -71,7 +71,6 @@ const NoNetwork = ({ noNetworkAvailableMessage }) => {
               </Flex>
             </Flex>
 
-
             <MetaMaskButton
               as="a"
               href="https://metamask.io/"
@@ -122,6 +121,10 @@ const NotWeb3Browser = ({ notWeb3CapableBrowserMessage }) => {
   );
 };
 
+const CustomMessage = ({ message }) => {
+  return <div>{message}</div>;
+};
+
 class ConnectionBanner extends Component {
   static propTypes = {
     currentNetwork: PropTypes.number,
@@ -168,7 +171,12 @@ class ConnectionBanner extends Component {
   }
 
   render() {
-    const { currentNetwork, requiredNetwork, onWeb3Fallback } = this.props;
+    const {
+      currentNetwork,
+      requiredNetwork,
+      onWeb3Fallback,
+      customMessage,
+    } = this.props;
 
     const {
       notWeb3CapableBrowserMessage,
@@ -190,6 +198,8 @@ class ConnectionBanner extends Component {
             requiredNetwork={requiredNetwork}
             onWrongNetworkMessage={onWrongNetworkMessage}
           />
+        ) : this.state.customMessage != undefined ? (
+          <CustomMessage message={customMessage} />
         ) : null}
       </div>
     );
